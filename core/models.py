@@ -32,7 +32,7 @@ class InternshipPlacement(models.Model):
         return f"{self.student.username} - {self.company_name}"
 
 class WeeklyLog(models.Model):
-    placement = models.ForeignKey(InternshipPlacement, on_delete = models.CASCADE, limit_choices_to = 'weekly_log')
+    placement = models.ForeignKey(InternshipPlacement, on_delete = models.CASCADE, related_name = 'weekly_logs')
     week_number = models.PositiveIntegerField()
     activities = models.TextField()
     challenges = models.TextField(blank = True, null = True)
@@ -58,7 +58,7 @@ class EvaluationCriteria(models.Model):
         return f"{self.name} {self.weight}%"
     
 class Evaluation(models.Model):
-    log = models.ForeignKey(WeeklyLog, on_delete=models.CASCADE, limit_choices_to = 'evaluation')
+    log = models.ForeignKey(WeeklyLog, on_delete=models.CASCADE, related_name = 'evaluations')
     supervisor = models.ForeignKey(CustomUser, on_delete = models.CASCADE)
     criteria = models.ForeignKey(EvaluationCriteria, on_delete=models.CASCADE)
     score = models.PositiveIntegerField()
