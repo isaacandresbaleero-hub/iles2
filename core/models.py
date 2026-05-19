@@ -16,9 +16,12 @@ class CustomUser(AbstractUser):
         return f"{self.username} ({self.role})"
 
 class InternshipPlacement(models.Model):
-    student = models.ForeignKey(CustomUser, on_delete=models.CASCADE, limit_choices_to = {'role': 'student'})
-    Academic_supervisor = models.ForeignKey(CustomUser, on_delete=models.CASCADE, limit_choices_to= {'role': 'Acad_supervisor'})
-    work_supervisor = models.ForeignKey(CustomUser, on_delete=models.CASCADE, limit_choices_to= {'role': 'work_supervisor'} ) 
+    student = models.ForeignKey(CustomUser, on_delete=models.CASCADE,
+                                limit_choices_to = {'role': 'student'}, related_name = 'student_placements')
+    Academic_supervisor = models.ForeignKey(CustomUser, on_delete=models.CASCADE, 
+                                limit_choices_to= {'role': 'acad_supervisor'}, related_name = 'academic_supervisions')
+    work_supervisor = models.ForeignKey(CustomUser, on_delete=models.CASCADE, 
+                                limit_choices_to= {'role': 'work_supervisor'}, related_name= 'work_supervisions' ) 
     company_name = models.CharField(max_length= 100)
     course = models.CharField(max_length= 100)
     start_date = models.DateField()
@@ -34,14 +37,14 @@ class WeeklyLog(models.Model):
     activities = models.TextField()
     challenges = models.TextField(blank = True, null = True)
     STATUS_CHOICES = [
-        'draft', 'draft',
-        'submitted', 'submitted',
-        'reviewed', 'reviewed',
-        'approved', 'approved',
-        'rejected', 'rejected',
+        ('draft', 'draft'),
+        ('submitted', 'submitted'),
+        ('reviewed', 'reviewed'),
+        ('approved', 'approved'),
+        ('rejected', 'rejected'),
     ]
     status = models.CharField(max_length = 20, choices = STATUS_CHOICES, default = 'draft')
-    created_at = models.DateTimeField(auto_add_now = True)
+    created_at = models.DateTimeField(auto_now_add = True)
     submitted_at = models.DateTimeField(blank = True, null = True)
 
     def __str__ (self):
