@@ -16,15 +16,15 @@ def WeeklyLog_detail(request, id):
     try:
         log = WeeklyLog.objects.get(id=id)
         data = {
-            'id' = 'log.id',
-            'week_number' = 'log.week_number',
-            'activities' = 'log.activities',
-            'challenges' = 'log.challenges',
-            'status' = 'log.staus',
-            'student' = 'log.placement.student.username',
-            'company' = 'log.placement.company_name',
-            'created_at' = 'log.created_at',
-            'submitted_at' = 'log.submitted_at',
+            'id' : 'log.id',
+            'week_number' : 'log.week_number',
+            'activities' : 'log.activities',
+            'challenges' : 'log.challenges',
+            'status' : 'log.staus',
+            'student' : 'log.placement.student.username',
+            'company' : 'log.placement.company_name',
+            'created_at' : 'log.created_at',
+            'submitted_at' : 'log.submitted_at',
         }
         return JsonResponse(data)
     except WeeklyLog.DoesNotExist:
