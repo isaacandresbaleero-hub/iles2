@@ -19,7 +19,7 @@ class InternshipPlacement(models.Model):
     student = models.ForeignKey(CustomUser, on_delete=models.CASCADE,
                                 limit_choices_to = {'role': 'student'}, related_name = 'student_placements')
     Academic_supervisor = models.ForeignKey(CustomUser, on_delete=models.CASCADE, 
-                                limit_choices_to= {'role': 'acad_supervisor'}, related_name = 'academic_supervisions')
+                                limit_choices_to= {'role': 'Acad_supervisor'}, related_name = 'academic_supervisions')
     work_supervisor = models.ForeignKey(CustomUser, on_delete=models.CASCADE, 
                                 limit_choices_to= {'role': 'work_supervisor'}, related_name= 'work_supervisions' ) 
     company_name = models.CharField(max_length= 100)
